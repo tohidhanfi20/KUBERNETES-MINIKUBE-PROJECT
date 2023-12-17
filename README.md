@@ -69,7 +69,7 @@ eksctl create nodegroup --cluster=eksdemo \
                    --nodes-max=4 \
                    --node-volume-size=10 \
                    --ssh-access \
-                   --ssh-public-key=Praveen-test \
+                   --ssh-public-key=tohid-test \
                    --managed \
                    --asg-access \
                    --external-dns-access \
