@@ -8,10 +8,9 @@
     - Launch an instance from an Amazon Linux 2 or Amazon Linux AMI
     - Instance Type - t2.medium
     - Proceed without a key-pair
-    - Create a security group
+    - Create a security group  -- Edit security group wilh all traffic
     - Storage 15GB
     
-  Edit security group wilh all traffic
 
   2. Connect to your instance
 
