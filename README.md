@@ -10,6 +10,7 @@
     - Proceed without a key-pair
     - Create a security group  -- Edit security group wilh all traffic
     - Storage 15GB
+    - Launch Instance
     
   2. Connect to your instance
 
