@@ -147,11 +147,11 @@
 
   EC2 LOGIN FOR SHOPFRONT
   
-     - kubectl port-forward --address 0.0.0.0 svc/shopfront8080:8010
+     - kubectl port-forward --address 0.0.0.0 svc/shopfront 8080:8010
 
   EC2 LOGIN FOR productcatalogue
   
-     - kubectl port-forward--address0.0.0.0svc/productcatalogue8090:8020
+     - kubectl port-forward --address0.0.0.0 svc/productcatalogue 8090:8020
 
   EC2 LOGIN FOR stockmanager
   
