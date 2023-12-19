@@ -11,7 +11,6 @@
     - Create a security group  -- Edit security group wilh all traffic
     - Storage 15GB
     
-
   2. Connect to your instance
 
   3. Update the packages and package caches you have installed on your instance.
