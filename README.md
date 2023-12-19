@@ -6,6 +6,10 @@
   1.MINIKUBE AND DOCKER INSTALLATION ON AMAZON LINUX
 
     - Launch an instance from an Amazon Linux 2 or Amazon Linux AMI
+    - Instance Type - t2.medium
+    - Proceed without a key-pair
+    
+  Edit security group wilh all traffic
 
   2. Connect to your instance
 
