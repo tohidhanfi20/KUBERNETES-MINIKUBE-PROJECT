@@ -33,6 +33,7 @@
 
     - sudo /usr/local/bin/minikubestart--force--driver=docker
 
+
 # STEP 2 :  
 
   DOCKER
@@ -57,6 +58,7 @@
  JAVA
 
     - yum install java -y
+    
 
  # STEP 3 : 
 
@@ -69,9 +71,111 @@
     - source $HOME/.bashrc
     - kubectl version --short –client
     
+    
  # STEP 4 :     
 
-    - 
+    - git clone https://github.com/tohidhanfi20/KUBERNETES-MINIKUBE-PROJECT
+    
 
+# STEP 5 : IMPORTANT STEP
 
+  NOTE - Give your dockerhub ID in place of tohidaws
   
+  SERVICE 1 - Shopfront
+  
+        - cd shopfront/
+        - mvn clean install -DskipTests
+        - docker build -t tohidaws/shopfront:latest .
+        - docker push tohidaws/shopfront:latest
+
+  SERVICE 2 - productcatalogue
+  
+        - cd productcatalogue/
+        - mvn clean install -DskipTests
+        - docker build -t tohidaws/productcatalogue:latest .
+        - docker push tohidaws/productcatalogue:latest
+
+  SERVICE 3 - stockmanager
+  
+        - cd stockmanager/
+        - mvn clean install -DskipTests
+        - docker build -t tohidaws/stockmanager:latest .
+        - docker push tohidaws/stockmanager:latest
+
+
+# STEP 6 : 
+
+   GO TO KUBERNETES FOLDER IN SAME PROJECT
+
+        - cd kubernetes
+        - kubectl apply -f shopfront-service.yaml
+        - kubectl apply -f productcatalogue-service.yaml
+        - kubectl apply -f stockmanager-service.yaml
+
+
+
+# STEP 7 : 
+
+     - kubectl get pods
+
+
+
+# STEP 8 :
+
+  Hit the below command to start the kubernetes dashboard in EC2
+
+    - /usr/local/bin/minikube dashboard
+    
+
+# STEP 9 : IN NEW EC2 WINDOW
+
+  Open the EC2 in new window and set the PROXY
+
+    - kubectl proxy --address='0.0.0.0' --accept-hosts='^*$' 
+    
+
+# STEP 10 : 
+
+  Hit in browser to view the dashboard
+
+    - http://<EC2-IP>:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/#/pod?namespace=default
+    
+
+    
+# STEP 11 :         
+
+  Hit the below command for each service in different console of EC2
+
+  EC2 LOGIN FOR SHOPFRONT
+  
+     - kubectl port-forward --address 0.0.0.0 svc/shopfront8080:8010
+
+  EC2 LOGIN FOR productcatalogue
+  
+     - kubectlport-forward--address0.0.0.0svc/productcatalogue8090:8020
+
+  EC2 LOGIN FOR stockmanager
+  
+     - kubectlport-forward--address0.0.0.0svc/stockmanager9008:8030
+
+
+     
+# STEP 12 :       
+
+   For productcatalogue
+   
+      - http://<EC2IP>:8090/products
+
+   For stockmanager
+
+      - http://<EC2IP>:9008/stocks
+
+
+
+ # STEP 13 :
+
+   ANALYZE THE DASHBOARD
+
+
+
+# We Have Successfully completed our Java Kubernete's deployement
