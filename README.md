@@ -1,139 +1,77 @@
-# KUBERNETES-MINIKUBE-PROJECT
+# JAVA KUBERNETE'S DEPLOYMENT
 
 
-INSTALL MINIKUBE 
-***********************************************************
+# STEP 1:
 
-KUBECTL
-curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl
-chmod +x ./kubectl
-mkdir -p $HOME/bin
-cp ./kubectl $HOME/bin/kubectl
-export PATH=$HOME/bin:$PATH
-echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
-source $HOME/.bashrc
-kubectl version --short --client
+  1.MINIKUBE AND DOCKER INSTALLATION ON AMAZON LINUX
 
-DOCKER
-yum install docker -y
-systemctl  start docker
-systemctl enable docker
+    - Launch an instance from an Amazon Linux 2 or Amazon Linux AMI
 
-https://minikube.sigs.k8s.io/docs/start/
-***********************************************************
+  2. Connect to your instance
 
+  3. Update the packages and package caches you have installed on your instance.
 
+    - yum update -y   
 
-INSTALL EKS SETUP
-#############################################################
-Step1: Take EC2 Instance with t2.MEDIUM instance type
-Step2: Create IAM Role with Admin policy for eks-cluster and attach to ec2-instance
-Step3: Install kubectl
+  4. Install the latest Docker Engine packages.
 
-curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/kubectl
-chmod +x ./kubectl
-mkdir -p $HOME/bin
-cp ./kubectl $HOME/bin/kubectl
-export PATH=$HOME/bin:$PATH
-echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
-source $HOME/.bashrc
-kubectl version --short --client
+    - amazon-linux-extrasinstalldocker
+    - yuminstalldocker-y
 
-Step4: Install eksctl:
-curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-sudo mv /tmp/eksctl /usr/bin
-eksctl version
+  5. Start the Docker service.
 
-Step5: MASTER Cluster creation:
-eksctl create cluster --name=eksdemo \
-                  --region=us-west-1 \
-                  --zones=us-west-1b,us-west-1c \
-                  --without-nodegroup 
+    - systemctlstartdocker
+    - systemctlenabledocker
 
-Step6: Add Iam-Oidc-Providers:
-eksctl utils associate-iam-oidc-provider \
-    --region us-west-1 \
-    --cluster eksdemo \
-    --approve 
+  6. Install Conntrack and Minikube.
 
-Allowing the service to connect with EKS
+    - yum install conntrack -y
+    - curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    - sudo install minikube-linux-amd64 /usr/local/bin/minikube 
 
+  7. Start your MINIKUBE
 
-Step7: WORKER NODE Create node-group:
-eksctl create nodegroup --cluster=eksdemo \
-                   --region=us-west-1 \
-                   --name=eksdemo-ng-public \
-                   --node-type=t2.medium \
-                   --nodes=2 \
-                   --nodes-min=2 \
-                   --nodes-max=4 \
-                   --node-volume-size=10 \
-                   --ssh-access \
-                   --ssh-public-key=tohid-test \
-                   --managed \
-                   --asg-access \
-                   --external-dns-access \
-                   --full-ecr-access \
-                   --appmesh-access \
-                   --alb-ingress-access	
+    - /usr/local/bin/minikubestart--force--driver=docker
+
+# STEP 2 :  
+
+  DOCKER
+
+    - yum install docker -y 
+    - systemctl start docker 
+    - systemctl enable docker
+
+  MAVEN
+
+    - cd/opt/
+    - wget http://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+    - tar xvzf apache-maven-3.6.3-bin.tar.gz
+    - vi/etc/profile.d/maven.sh
+    - export MAVEN_HOME=/opt/apache-maven-3.6.3
+    - export PATH=$PATH:$MAVEN_HOME/bin
+
+ GIT 
+
+    - yum install git -y 
+    
+ JAVA
+
+    - yum install java -y
+
+ # STEP 3 : 
+
+    - curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl
+    - chmod +x ./kubectl
+    - mkdir -p $HOME/bin
+    - cp ./kubectl $HOME/bin/kubectl
+    - export PATH=$HOME/bin:$PATH
+    - echo'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+    - source $HOME/.bashrc
+    - kubectl version --short –client
+    
+ # STEP 4 :     
+
+    - 
 
 
- 
-//eksctl delete nodegroup --cluster=eksdemo --region=us-east-1 --name=eksdemo-ng-public
-
-
-
-//eksctl delete cluster --name=eksdemo    --region=us-west-1	
-
-
-
-
-#############################################################
-
-
-HANDSON
-
-
-Deploying Java Applications with Docker and Kubernetes
-
-1) Build each project ->> mvn clean install -DskipTests
-
-2) Create docker hub account
-
-3) Build the image in local -> docker build -t tohidaws/shopfront:latest .
-
-docker build -t tohidaws/productcatalogue:latest .
-
-docker build -t tohidaws/stockmanager:latest .
-
-4) Push the image to your docker hub -> docker push tohidaws/shopfront:latest 
-
-docker push praveensingam1994/productcatalogue:latest
-
-docker push praveensingam1994/stockmanager:latest
-
-5) Go to kubernetes folder and create the pods -> 
-
-kubectl apply -f shopfront-service.yaml
-
-kubectl apply -f productcatalogue-service.yaml
-
-kubectl apply -f stockmanager-service.yaml
-
-6) minikube service servicename  -> 
-
-minikube service shopfront
-minikube service productcatalogue
-minikube service stockmanager
-
-7) Hit the url in browser -> 
-
-ORDER TO BUILD AND DEPLOY 
-
-shopfront -> productcatalogue -> stockmanager
-
-Endpoint for product --> /products
-Endpoint for stock --> /stocks
-
-
-# kubernetes_java_deployment
+  
