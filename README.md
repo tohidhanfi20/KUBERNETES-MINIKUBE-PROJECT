@@ -136,6 +136,4 @@ Endpoint for product --> /products
 Endpoint for stock --> /stocks
 
 
-
-# kubernetes_java_deployment
 # kubernetes_java_deployment
