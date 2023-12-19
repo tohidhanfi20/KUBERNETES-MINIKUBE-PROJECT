@@ -31,7 +31,7 @@
 
   7. Start your MINIKUBE
 
-    - /usr/local/bin/minikubestart--force--driver=docker
+    - sudo /usr/local/bin/minikubestart--force--driver=docker
 
 # STEP 2 :  
 
