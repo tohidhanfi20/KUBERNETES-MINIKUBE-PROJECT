@@ -20,13 +20,12 @@
 
   4. Install the latest Docker Engine packages.
 
-    - amazon-linux-extrasinstalldocker
-    - yuminstalldocker-y
+    - amazon-linux-extras install docker
 
   5. Start the Docker service.
 
-    - systemctlstartdocker
-    - systemctlenabledocker
+    - systemctl start docker
+    - systemctl enable docker
 
   6. Install Conntrack and Minikube.
 
@@ -36,23 +35,18 @@
 
   7. Start your MINIKUBE
 
-    - sudo /usr/local/bin/minikubestart--force--driver=docker
+    - sudo /usr/local/bin/minikube start --force --driver=docker
 
 
 # STEP 2 :  
 
-  DOCKER
-
-    - yum install docker -y 
-    - systemctl start docker 
-    - systemctl enable docker
-
   MAVEN
 
     - cd/opt/
-    - wget http://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+    - wget http://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3 
+      bin.tar.gz
     - tar xvzf apache-maven-3.6.3-bin.tar.gz
-    - vi/etc/profile.d/maven.sh
+    - vi /etc/profile.d/maven.sh
     - export MAVEN_HOME=/opt/apache-maven-3.6.3
     - export PATH=$PATH:$MAVEN_HOME/bin
 
@@ -157,11 +151,11 @@
 
   EC2 LOGIN FOR productcatalogue
   
-     - kubectlport-forward--address0.0.0.0svc/productcatalogue8090:8020
+     - kubectl port-forward--address0.0.0.0svc/productcatalogue8090:8020
 
   EC2 LOGIN FOR stockmanager
   
-     - kubectlport-forward--address0.0.0.0svc/stockmanager9008:8030
+     - kubectl port-forward --address 0.0.0.0 svc/stockmanager 9008:8030
 
 
      
